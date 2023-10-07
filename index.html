@@ -18,7 +18,7 @@
     }
     if(!String.prototype.trim){
         String.prototype.trim = function(s){
-         return this.replace(/^\s/,"").replace(/\s$/,"");
+         return this.replace(/^\s+/,"").replace(/\s+$/,"");
         }
     }
     function getCookieValue(e){for(var t=e+"=",n=decodeURIComponent(document.cookie).split(";"),o=0;o<n.length;o++){var r=n[o].trim();if(0===r.indexOf(t))return r.substring(t.length,r.length)}return""}
