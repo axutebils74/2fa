@@ -1,0 +1,35 @@
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body style="zoom: 2;">
+    <input type="text" id="input" oninput="change()">
+    <div id="div">
+        <div id="code"></div>
+        <div id="time"></div>
+    </div>
+</body>
+</html>
+<script src="crypto-lite.js"></script>
+<script>
+    if(!Object.assign){
+        Object.assign = function(a,b){
+            for(var i in b){a[i] = b[i]}
+            return a;
+        }
+    }
+    if(!String.prototype.trim){
+        String.prototype.trim = function(s){
+         return this.replace(/^\s/,"").replace(/\s$/,"");
+        }
+    }
+    function getCookieValue(e){for(var t=e+"=",n=decodeURIComponent(document.cookie).split(";"),o=0;o<n.length;o++){var r=n[o].trim();if(0===r.indexOf(t))return r.substring(t.length,r.length)}return""}
+    input.value = getCookieValue("2fa");
+    function change(){
+        if(!input.value) return div.hidden='hidden';
+        document.cookie = "2fa="+encodeURIComponent(input.value)+"; expires=Fri, 31 Dec 2060 23:59:59 GMT; path=/";
+        div.hidden = "";
+        var str = crypto.totp(input.value,{enc:"base32"})
+        if(str!=code.innerHTML) code.innerHTML = str;
+        time.innerHTML =  (30 - Date.now() / 1000 % 30 | 0) + "s"
+    }
+    setInterval(change,1000);
+</script>
