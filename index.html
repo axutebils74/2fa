@@ -25,7 +25,7 @@
     input.value = getCookieValue("2fa");
     function change(){
         if(!input.value) return div.hidden='hidden';
-        document.cookie = "2fa="+encodeURIComponent(input.value)+"; expires=Fri, 31 Dec 2060 23:59:59 GMT; path=/";
+        document.cookie = "2fa="+encodeURIComponent(input.value)+"; expires=Fri, 31 Dec 2060 23:59:59 GMT";
         div.hidden = "";
         var str = crypto.totp(input.value,{enc:"base32"})
         if(str!=code.innerHTML) code.innerHTML = str;
